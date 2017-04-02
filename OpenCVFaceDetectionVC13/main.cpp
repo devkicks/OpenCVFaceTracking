@@ -29,10 +29,14 @@ int main()
 	cv::Mat inImage;
 	int ch = 0;
 	int currentTime = (int)inVideo.get(CV_CAP_PROP_POS_MSEC);
-
+	int currCount = 0;
 	// stop when all video done or use interrupts by pressing ESC key (27)
 	while (inVideo.read(inImage) && ch != 27 && currentTime < endingTime)
 	{
+		if (currCount % 60 == 0)
+		{
+
+		
 		//cv::resize(inImage, inImage, cv::Size(inVidWidth, inVidHeight));
 		std::cout << "Current Time " << currentTime << " Ending Time " << endingTime << std::endl;
 
@@ -71,6 +75,9 @@ int main()
 		ch = cv::waitKey(1);
 		currentTime = (int)inVideo.get(CV_CAP_PROP_POS_MSEC);
 	}
+	}
+
+	currCount++;
 	outVideo.release();
 	outVideoPredRect.release();
 }

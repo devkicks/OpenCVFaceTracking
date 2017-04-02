@@ -30,7 +30,7 @@ FaceTracker::FaceTracker()
 
 	// update the process,measurement noise and error covariance
 	cv::setIdentity(m_faceTracker.processNoiseCov, cv::Scalar::all(1e-4));
-	cv::setIdentity(m_faceTracker.measurementNoiseCov, cv::Scalar::all(10));
+	cv::setIdentity(m_faceTracker.measurementNoiseCov, cv::Scalar::all(1/10));
 	cv::setIdentity(m_faceTracker.errorCovPost, cv::Scalar::all(.1));
 
 	std::cout << "DynamicalModel: " << m_faceTracker.transitionMatrix << std::endl;
@@ -70,7 +70,7 @@ FaceTracker::FaceTracker(int dynamDim, int measDim)
 
 	// update the process,measurement noise and error covariance
 	cv::setIdentity(m_faceTracker.processNoiseCov, cv::Scalar::all(1e-4));
-	cv::setIdentity(m_faceTracker.measurementNoiseCov, cv::Scalar::all(10));
+	cv::setIdentity(m_faceTracker.measurementNoiseCov, cv::Scalar::all(1/10));
 	cv::setIdentity(m_faceTracker.errorCovPost, cv::Scalar::all(.1));
 
 	std::cout << "DynamicalModel: " << m_faceTracker.transitionMatrix << std::endl;
