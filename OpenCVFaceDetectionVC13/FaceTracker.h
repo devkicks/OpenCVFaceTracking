@@ -11,7 +11,9 @@ public:
 	FaceTracker(int dynamDim, int measDim);
 	cv::Mat predict();
 	void update(const cv::Mat &inMat);
+	void currentPredictDisplayRect(cv::Mat &inImage);
 	void currentPredictDisplay(cv::Mat &inImage);
+	void setFirstState(cv::Mat &inMat);
 	~FaceTracker();
 };
 
