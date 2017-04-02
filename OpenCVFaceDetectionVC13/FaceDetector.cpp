@@ -35,6 +35,11 @@ void FaceDetector::detectFaces(const cv::Mat &inImage)
 
 	this->m_imageFacesRect = inImage.clone();
 
+	if (m_detectedFaces.empty())
+		currentStatus = false;
+	else
+		currentStatus = true;
+
 	// display detected faces onto an image
 	for(int i = 0; i < m_detectedFaces.size(); i++)
 	{
@@ -47,6 +52,29 @@ void FaceDetector::detectFaces(const cv::Mat &inImage)
 cv::Mat FaceDetector::getImageFacesDisplay()
 {
 	return m_imageFacesRect;
+}
+
+bool FaceDetector::getCurrentStatus()
+{
+	return currentStatus;
+}
+
+cv::Mat FaceDetector::getFaceRect()
+{
+	// perhaps there could be a better way of recognizing faces?
+	// Maybe use skin color to detect false positives
+	// Or histogram matching with face from previous frames
+	// Or feature matching to see if it is the same face as the speaker
+	cv::Mat rectMat;
+
+	rectMat = cv::Mat::zeros(4, 1, CV_32FC1);
+
+	rectMat.at<float>(0) = m_detectedFaces[0].x;
+	rectMat.at<float>(1) = m_detectedFaces[0].y;
+	rectMat.at<float>(2) = m_detectedFaces[0].width;
+	rectMat.at<float>(3) = m_detectedFaces[0].height;
+
+	return rectMat;
 }
 
 FaceDetector::~FaceDetector()

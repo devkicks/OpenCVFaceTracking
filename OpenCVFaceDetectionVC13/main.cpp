@@ -1,10 +1,12 @@
 #include "Common.h"
 #include "FaceDetector.h"
+#include "FaceTracker.h"
 
 int main()
 {
 	FaceDetector faceDetect; // using default face detector settings
-
+	FaceTracker faceTrack; // using default KF tracker settings
+	
 	cv::VideoCapture inVideo("data\\AddedVideo.mp4");
 	int inVidWidth = (int)inVideo.get(CV_CAP_PROP_FRAME_WIDTH);
 	int inVidHeight = (int)inVideo.get(CV_CAP_PROP_FRAME_HEIGHT);
@@ -34,7 +36,19 @@ int main()
 		// Process input video stream
 		faceDetect.detectFaces(inImage);
 
+		// Predict the tracker state
+		faceTrack.predict();
+
+		cv::Mat currentFaceRect;
+		if (faceDetect.getCurrentStatus())
+		{
+			currentFaceRect = faceDetect.getFaceRect();
+			faceTrack.update(currentFaceRect);
+		}
+
+		
 		cv::Mat outImage = faceDetect.getImageFacesDisplay();
+		faceTrack.currentPredictDisplay(outImage);
 		// Write processed image
 		outVideo.write(outImage);
 		cv::imshow("Show Image", inImage);
