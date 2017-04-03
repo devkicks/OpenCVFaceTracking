@@ -91,7 +91,7 @@ cv::Mat FaceDetector::getFaceRect()
 
 	rectMat = cv::Mat::zeros(4, 1, CV_32FC1);
 
-	std::cout << "Num of Faces: " << m_detectedFaces.size() << std::endl;
+	//std::cout << "Num of Faces: " << m_detectedFaces.size() << std::endl;
 
 	rectMat.at<float>(0) = m_detectedFaces[0].x;
 	rectMat.at<float>(1) = m_detectedFaces[0].y;
