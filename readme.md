@@ -12,6 +12,11 @@ Pre-requisites
 
 Examples Face Tracking
 =================
+Tracking output only showing the tracked face
+<img src="https://github.com/devkicks/OpenCVFaceTracking/blob/master/OpenCVFaceDetectionVC13/gifs/gif1.gif" alt="Face Tracking 1" width="800"/>
 
-<img src="https://github.com/devkicks/OpenCVFaceTracking/blob/master/OpenCVFaceDetectionVC13/gifs/gif1.gif" alt="Face Tracking 1" width="400"/>
-<img src="https://github.com/devkicks/OpenCVFaceTracking/blob/master/OpenCVFaceDetectionVC13/gifs/gif2.gif" alt="Face Tracking 2" width="400"/>
+Tracking output showing the detected faces and tracking output
+<img src="https://github.com/devkicks/OpenCVFaceTracking/blob/master/OpenCVFaceDetectionVC13/gifs/gif2.gif" alt="Face Tracking 2" width="800"/>
+
+
+Source Video: https://www.youtube.com/watch?v=n8yhaFd_GpM
