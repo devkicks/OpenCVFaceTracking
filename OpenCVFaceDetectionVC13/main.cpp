@@ -57,12 +57,15 @@ int main()
 				faceTrack.setFirstState(currentFaceRect);
 				initTracker = true;
 			}
+
 			faceTrack.update(currentFaceRect);
 		}
 
 		// write images to video files
 		cv::Mat outImage = inImage.clone();
+		
 		faceTrack.currentPredictDisplay(outImage);
+		
 		outVideo.write(outImage);
 
 		
