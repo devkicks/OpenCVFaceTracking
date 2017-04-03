@@ -9,28 +9,30 @@
 FaceTracker::FaceTracker()
 {
 	// load default params
-	this->m_dynamicModelDim = 6;
+	this->m_dynamicModelDim = 8;
 	this->m_measureModelDim = 4;
 	this->m_faceTracker.init(m_dynamicModelDim, m_measureModelDim);
 
 	// initialize the dynamic model and measurement model
-	float dynamicModelData[] = { 1, 0, 1, 0, 0, 0,
-		0, 1, 0, 1, 0, 0,
-		0, 0, 1, 0, 0, 0,
-		0, 0, 0, 1, 0, 0,
-		0, 0, 0, 0, 1, 0,
-		0, 0, 0, 0, 0, 1 };
+	float dynamicModelData[] = { 1, 0, 1, 0, 0, 0, 0, 0,
+								 0, 1, 0, 1, 0, 0, 0, 0,
+								 0, 0, 1, 0, 1, 0, 0, 0,
+								 0, 0, 0, 1, 0, 1, 0, 0,
+							     0, 0, 0, 0, 1, 0, 0, 0,
+								 0, 0, 0, 0, 0, 1, 0, 0,
+								 0, 0, 0, 0, 0, 0, 1, 0,
+								 0, 0, 0, 0, 0, 0, 0, 1 };
 
-	cv::Mat dynamicModel = cv::Mat(6, 6, CV_32FC1, dynamicModelData);
+	cv::Mat dynamicModel = cv::Mat(8, 8, CV_32FC1, dynamicModelData);
 	m_faceTracker.transitionMatrix = dynamicModel.clone();
 
-	float measurementModelData[] = { 1, 0, 0, 0, 0, 0,
-								0, 1, 0, 0, 0, 0,
-								0, 0, 0, 0, 1, 0,
-								0, 0, 0, 0, 0, 1 };
+	float measurementModelData[] = { 1, 0, 0, 0, 0, 0, 0, 0,
+								0, 1, 0, 0, 0, 0, 0, 0,
+								0, 0, 0, 0, 0, 0, 1, 0,
+								0, 0, 0, 0, 0, 0, 0, 1 };
 
 
-	cv::Mat measurementModel = cv::Mat(4, 6, CV_32FC1, measurementModelData);
+	cv::Mat measurementModel = cv::Mat(4, 8, CV_32FC1, measurementModelData);
 	m_faceTracker.measurementMatrix = measurementModel.clone();
 
 	// update the process,measurement noise and error covariance
@@ -54,23 +56,25 @@ FaceTracker::FaceTracker(int dynamDim, int measDim)
 	this->m_faceTracker.init(m_dynamicModelDim, m_measureModelDim);
 
 	// initialize the dynamic model and measurement model
-	float dynamicModelData[] = { 1, 0, 1, 0, 0, 0,
-		0, 1, 0, 1, 0, 0,
-		0, 0, 1, 0, 0, 0,
-		0, 0, 0, 1, 0, 0,
-		0, 0, 0, 0, 1, 0,
-		0, 0, 0, 0, 0, 1 };
+	float dynamicModelData[] = { 1, 0, 1, 0, 0, 0, 0, 0,
+		0, 1, 0, 1, 0, 0, 0, 0,
+		0, 0, 1, 0, 1, 0, 0, 0,
+		0, 0, 0, 1, 0, 1, 0, 0,
+		0, 0, 0, 0, 1, 0, 0, 0,
+		0, 0, 0, 0, 0, 1, 0, 0,
+		0, 0, 0, 0, 0, 0, 1, 0,
+		0, 0, 0, 0, 0, 0, 0, 1 };
 
-	cv::Mat dynamicModel = cv::Mat(4, 6, CV_32FC1, dynamicModelData);
+	cv::Mat dynamicModel = cv::Mat(8, 8, CV_32FC1, dynamicModelData);
 	m_faceTracker.transitionMatrix = dynamicModel.clone();
 
-	float measurementModelData[] = { 1, 0, 0, 0, 0, 0,
-		0, 1, 0, 0, 0, 0,
-		0, 0, 0, 0, 1, 0,
-		0, 0, 0, 0, 0, 1 };
+	float measurementModelData[] = { 1, 0, 0, 0, 0, 0, 0, 0,
+		0, 1, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 1, 0,
+		0, 0, 0, 0, 0, 0, 0, 1 };
 
 
-	cv::Mat measurementModel = cv::Mat(6, 6, CV_32FC1, measurementModelData);
+	cv::Mat measurementModel = cv::Mat(4, 8, CV_32FC1, measurementModelData);
 	m_faceTracker.measurementMatrix = measurementModel.clone();
 
 	// update the process,measurement noise and error covariance
@@ -150,8 +154,10 @@ void FaceTracker::setFirstState(cv::Mat &inMat)
 	m_faceTracker.statePre.at<float>(1) = inMat.at<float>(1);
 	m_faceTracker.statePre.at<float>(2) = 0;
 	m_faceTracker.statePre.at<float>(3) = 0;
-	m_faceTracker.statePre.at<float>(4) = inMat.at<float>(2);
-	m_faceTracker.statePre.at<float>(5) = inMat.at<float>(3);
+	m_faceTracker.statePre.at<float>(4) = 0;
+	m_faceTracker.statePre.at<float>(5) = 0;
+	m_faceTracker.statePre.at<float>(6) = inMat.at<float>(2);
+	m_faceTracker.statePre.at<float>(7) = inMat.at<float>(3);
 }
 
 FaceTracker::~FaceTracker()
