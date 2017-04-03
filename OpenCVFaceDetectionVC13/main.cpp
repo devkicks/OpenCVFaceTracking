@@ -9,8 +9,8 @@ int main()
 	FaceTracker faceTrack; // using default KF tracker settings
 	
 	cv::VideoCapture inVideo("data\\AddedVideo.mp4");
-	int inVidWidth = (int)inVideo.get(CV_CAP_PROP_FRAME_WIDTH);
-	int inVidHeight = (int)inVideo.get(CV_CAP_PROP_FRAME_HEIGHT);
+	int inVidWidth = (int)inVideo.get(CV_CAP_PROP_FRAME_WIDTH)/4;
+	int inVidHeight = (int)inVideo.get(CV_CAP_PROP_FRAME_HEIGHT)/4;
 	int inVidFrameRate = (int)inVideo.get(CV_CAP_PROP_FPS);
 
 	// We are only interested in the video from 8:30 to 12:45
@@ -37,7 +37,7 @@ int main()
 		{
 
 		
-		//cv::resize(inImage, inImage, cv::Size(inVidWidth, inVidHeight));
+		cv::resize(inImage, inImage, cv::Size(inVidWidth, inVidHeight));
 		std::cout << "Current Time " << currentTime << " Ending Time " << endingTime << std::endl;
 
 		// Process input video stream
